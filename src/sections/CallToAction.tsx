@@ -3,26 +3,30 @@ import { Button } from "@/components/Button";
 import starsBg from "@/assets/stars.png";
 import gridLines from "@/assets/grid-lines.png";
 import { motion, useMotionTemplate, useMotionValue, useScroll, useTransform } from "framer-motion";
-import { RefObject, useEffect, useRef } from "react";
+import { RefObject, useCallback, useEffect, useRef } from "react";
+
 
 const useRelativeMousePosition = (to: RefObject<HTMLElement>) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const updateMousePosition = (e: MouseEvent) => {
+  const updateMousePosition = useCallback((e: MouseEvent) => {  // ✅ useCallback se wrap kiya
     if (!to.current) return;
     const { top, left } = to.current.getBoundingClientRect();
     mouseX.set(e.clientX - left);
     mouseY.set(e.clientY - top);
-  }
+  }, [mouseX, mouseY, to]);  // ✅ Dependencies add ki
+
   useEffect(() => {
     window.addEventListener("mousemove", updateMousePosition);
     return () => {
       window.removeEventListener("mousemove", updateMousePosition);
     };
-  }, [])
+  }, [updateMousePosition]); // ✅ Dependency array me function add kiya
+
   return [mouseX, mouseY];
-}
+};
+
 
 export const CallToAction = () => {
   const sectionRef = useRef<HTMLElement>(null);
