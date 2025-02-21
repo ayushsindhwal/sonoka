@@ -5,7 +5,8 @@ import celestiralogo from "@/assets/logo-celestial.png";
 import quantumLogo from "@/assets/logo-quantum.png";
 import pulseLogo from "@/assets/logo-pulse.png";
 import echoLogo from "@/assets/logo-echo.png";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 export const LogoTicker = () => {
   return (
@@ -16,15 +17,16 @@ export const LogoTicker = () => {
             <h2>Trusted by top innovative teams</h2>
           </div>
           <div className="flex flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]">
-            <motion.div 
-            initial={{translateX: '-50%'}}
-            animate={{translateX: '0'}}
-            transition={{
-              repeat: Infinity,
-              duration: 30,
-              ease: "linear"
-            }}
-            className="flex flex-none gap-14 pr-14 -translate-x-1/2">
+            <motion.div
+              initial={{ translateX: "-50%" }}
+              animate={{ translateX: "0" }}
+              transition={{
+                repeat: Infinity,
+                duration: 30,
+                ease: "linear",
+              }}
+              className="flex flex-none gap-14 pr-14 -translate-x-1/2"
+            >
               {[
                 acmeLogo,
                 apexLogo,
@@ -38,8 +40,14 @@ export const LogoTicker = () => {
                 quantumLogo,
                 pulseLogo,
                 echoLogo,
-              ].map((logo) => (
-                <img src={logo.src} key={logo.src} alt="logo-ticker" className="h-6 w-auto" />
+              ].map((logo,index) => (
+                <Image
+                  src={logo}
+                  key={index}
+                  alt="logo-ticker"
+                  height={24} // Set a proper height
+                  width={60} // Let it scale proportionally
+                />
               ))}
             </motion.div>
           </div>

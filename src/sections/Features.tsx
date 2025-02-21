@@ -3,16 +3,13 @@ import {
   DotLottieCommonPlayer,
   DotLottiePlayer,
 } from "@dotlottie/react-player";
-import Image from "next/image";
 import productImage from "@/assets/product-image.png";
 import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
-import { DotLottie } from "@lottiefiles/dotlottie-react";
 import {
   animate,
   motion,
   useMotionTemplate,
   useMotionValue,
-  ValueAnimationOptions,
   ValueAnimationTransition,
 } from "framer-motion";
 
@@ -77,7 +74,8 @@ const FeatureTab = (
     };
     animate(xPercentage, [0, 100, 100, 0, 0], options);
     animate(yPercentage, [0, 0, 100, 100, 0], options);
-  }, [props.selected]);
+  }, [props.selected, xPercentage, yPercentage]);
+
   const handleTabHover = () => {
     if (dotLottieRef.current === null) return;
     dotLottieRef.current.seek(0);
